@@ -5,22 +5,15 @@ const navbar = document.getElementById('navbar');
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
-// Scroll effect for navbar
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Mobile menu toggle
 navToggle.addEventListener('click', () => {
   navToggle.classList.toggle('active');
   navMenu.classList.toggle('active');
 });
 
-// Close mobile menu when clicking a link
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => {
     navToggle.classList.remove('active');
@@ -28,16 +21,34 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
-// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+});
+
+// ========================================
+// Scroll Animations
+// ========================================
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.service-card, .skill-card, .project-card').forEach(el => {
+  el.style.opacity = '0';
+  observer.observe(el);
 });
