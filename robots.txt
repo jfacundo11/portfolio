@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://automation-expert.jfacundo.com/sitemap.xml
+Sitemap: https://jfacundo11.github.io/portfolio/sitemap.xml
