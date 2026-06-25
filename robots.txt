@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://automation-expert.jfacundo.com/sitemap.xml
